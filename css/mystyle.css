@@ -1,0 +1,238 @@
+
+/* 나의 스타일을 정리한 css */
+
+/*
+CSS 변수로 일괄 변경 가능하도록 한다.+ 모든 element 와 class에 대해서 스타일을 선언한다.
+모바일을 수용한다.(viewport)
+코드 컬러링인 highlight.css 를 포함한다.
+header, case, footer, leftbar, righttbar 의 경계가 적절히 드러나게 한다.(선으로 할 것인가? 색으로 할 것인가?) 
+leftbar 와 rightbar는 display none 으로 했을 때 어떤 모양이 되는지도 살핀다.
+case에 대해서는 다음과 같이 한다.
+intro, subcase 설명, outro는 동일한 폰트를 사용한다. 줄간격과 정렬(justiy)도 지정한다. 
+subcase 설명은 조금 더 작은 크기의 폰트를 쓸 수도 있겠다.신
+title 은 별도의 폰트를 지정한다. subcase 의 코드는 코드 하이라이트를 하되 코드를 위한 테마와 전체 css 가 조화되도록 한다.
+코드 결과는 df, series는 표로 하고 series는 index 인 경우와 index 가 아닌 경우를 고려한다. 
+표가 아닌 다른 경우는 그냥 출력이므로 df, series 표와 어울리되 intro/subcase 설명/outro 와 다른 폰트로 한다.
+(코드 뿐만 아니라 code resilt도 책에서와 같은 별도의 listing 느낌을 줘야 한다)~ 
+buffer 의 경우는 현재 생각하는 첫 child를 subcase 설명과 같은 스타일을 한다.° 
+폰트는 title, 본문기본(ntro, outro, subcase 설명, buffering), code, code result 에 대해서 서로 조화되는 폰트로 구성한다. 
+link 나 hashtaag에 대해서도 폰트를 생각해본다. font-family는 보편적인 폰트로 하되 generic 측면에서도 살핀다.신
+전체 레이아웃 수준의 블록과 case 하위의 블록들에 대해서 box model에 근거하여 경계, padding.
+margin, contents, background 를 적절히 구성한다.
+display, position, flex 등에서 특별한 기능을
+쓸지 검토한다.
+글자와 색은 각각도 요하지만 전체적인 어울림도 중요하다. 색을 어떻게 쓸 것인가? 
+제목과 본문, 코드와 결과, 링크 등 텍스트들의 색을 자연스럽게 정해야 한다.
+ 이 텍스트들의 배경과 각 블록의 경계는 어떤 색같을 쓸 것인지도 정해야 한다. 
+ 코드 하이라이트의 경우도 이러한 흐름에서 테마를 사용하거나 약간 변경하여 쓴다,+
+텍스트의 쫀트, 크기 등은 어떻게 할 것인가? 제목과 본문, 코드와 결과, 링크 등의 폰트를 적절히 정해야 한다,
+이미지는 최소화 한다, 배지 정도의 느낌이면 충분하다. 한 페이지에는 다섯개 이내이고 전체적으로도 10개 이내의 이미지를 사용한다.
+*/
+
+/**************************    main blocks   ********************************/
+
+/* 각 영역의 시각적 구분을 위한 스타일 (선택 사항) */
+body, html {
+	height: 100%; /* body와 html의 높이를 100%로 설정하여 뷰포트 전체를 사용 */
+	margin: 0;
+	padding: 0;
+}
+.main-container {
+	display: flex; /* Flexbox를 사용하여 자식 요소들을 가로로 배치 */
+	min-height: 100vh; /* 뷰포트 높이 전체를 사용 */
+}
+
+.left-panel {
+	/*flex-grow : 1은 남은 공간의 비중을 말한다. flex-basis : 0으로 남은 공간이 전체인 것처럼 조정한다.*/
+    flex: 1; /* flex-grow: 1, flex-shrink: 1, flex-basis: 0 이 적용됨 */
+	background-color: rgb(255, 204, 204); /* 연한 분홍 */ /*#f8f9fa;*/
+	border: 1px solid #dee2e6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.right-panel {
+    flex: 19; /* 남은 공간의 19 비율 차지 */	
+	display: flex;
+	flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+}
+.right-top {
+	background-color: rgb(204, 255, 204); /* 연한 초록 */ /*#e9ecef;*/
+	border: 1px solid #ced4da;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-grow: 1; /* flex-grow를 통해 비율 조절 */
+}
+.right-bottom {
+	background-color: rgb(255, 255, 204); /* 연한 노랑 */ /*#e9ecef;*/
+	border: 1px solid #ced4da;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-grow: 1; /* flex-grow를 통해 비율 조절 */
+}
+.right-middle {
+	background-color: rgb(204, 204, 255); /* 연한 파랑 */ /*#f1f3f5;*/ 
+	border: 1px solid #adb5bd;
+	padding: 15px;
+	flex-grow: 9; /* flex-grow를 통해 비율 조절 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/* 각 영역의 높이 비율을 위한 CSS (선택 사항, flex-grow 대신 사용할 수 있음) */
+/* .right-panel div:nth-child(1) { flex-basis: 10%; } */
+/* .right-panel div:nth-child(2) { flex-basis: 80%; } */
+/* .right-panel div:nth-child(3) { flex-basis: 10%; } */
+
+/**************************     sub blocks    ********************************/
+
+.mytag {
+    display : inline-flex;
+    justify-content : flex-end;
+    width : 100%;
+}
+
+.mytag > a {
+    display : inline-block;
+    margin : 5px;
+}
+
+.mylink {
+    margin : 5px 0px 20px 0px;
+}
+
+
+.relatedtag {
+    display : inline-flex;
+    justify-content : flex-start;
+    width : 100%
+}
+
+.relatedtag > a {
+    display : inline-block;
+    margin : 5px;
+}
+
+.mytitle {
+    color : blue;
+    font-size : 13pt;
+}
+
+.intro {
+    margin : 20px 0px 30px 0px;
+}
+
+.intro > p {
+    font-size : 12pt;
+}
+
+.closing {
+    margin : 20px 0px 30px 0px;
+}
+
+.closing > p {
+    font-size : 12pt;
+}
+.subcase {
+
+}
+
+.subcase_title {
+    display : none;
+}
+
+.subcase_desc {
+    font-size : 11pt;
+    text-align : justify;
+    margin : 8px 1px 8px 1px;
+}
+
+.subcase_code {
+    
+}
+
+pre {
+    margin: 0px;
+}
+
+.subcase_result {
+}
+
+.subcase_result > p {
+    margin : 0px 1px 0px 1px;
+    line-height : 17pt;
+    font-size : 13px; /* 11pt로 하려고 했는데 hightlight에서 13px로 나와서. */
+}
+
+/**************************   table blocks   ********************************/
+
+table.dataframe {
+  white-space: normal;
+  width: 100%;
+  height: 100%;
+  margin: 0 0 1rem;
+  display: block;
+  overflow: auto;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  line-height: 20px;
+  text-align: center;
+  border: 0px !important;
+}
+
+table.dataframe th {
+  text-align: center;
+  font-weight: bold;
+  padding: 3px;
+}
+  
+table.dataframe td {
+  text-align: center;
+  padding: 1px;
+}
+  
+table.dataframe tr:hover {
+  background: #b8d1f3; 
+}
+  
+.output_prompt {
+  overflow: auto;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  border-radius: 0.3rem;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.8rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  color: $code-text-color;
+  border: solid 1px $border-color;
+  border-radius: 0.3rem;
+  word-break: normal;
+  white-space: pre;
+}
+
+.dataframe tbody tr th:only-of-type {
+    vertical-align: middle;
+}
+
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+
+.dataframe thead th {
+    text-align: center !important;
+    padding: 1px;
+}
+
+.page__content p {
+    margin: 0 0 1.3rem !important;
+}
+
+.page__content li > p {
+    margin: 0 0 0.6rem !important;
+}
